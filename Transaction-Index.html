@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Testing</title>
+  <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+  <link rel="stylesheet" href="/static/css/test.css" />
+</head>
+
+
+<header>
+  <nav>
+    <div class="menu-icon" id="menuIcon">
+      <i class="fas fa-bars"></i>
+    </div>
+    <!-- Left Side Elements -->
+    <ul>
+      <li><a href="#">Dashboard</a></li>
+      <li><a href="#">Team</a></li>
+      <li><a href="#">Projects</a></li>
+      <li id="currentDate" style="color:rgb(128,128,128); margin-left: 20px;"></li>
+    </ul>
+
+    <!-- Right elements -->
+    <div id="cartByHAT">
+      <!-- Icon -->
+      <a style="color: inherit; margin-right: 1rem;" href="#">
+        <i class="fas fa-shopping-cart"></i>
+      </a>
+    </div>
+
+    <!-- Script to toggle menu button -->
+    <script>
+      document.getElementById("menuIcon").addEventListener("click", function () {
+        const menu = document.querySelector("nav ul");
+        menu.classList.toggle("show");
+
+        // Toggle the visibility of the shopping cart icon
+        const Date = document.querySelector("#currentDate");
+        Date.style.display = Date.style.display === 'none' ? 'block' : 'none';
+      });
+
+      <!-- End of Script to toggle menu button -->
+
+      <!-- Star of Script to get date -->
+      // Get the element by ID
+      const currentDateElement = document.getElementById("currentDate");
+
+      // Get the current date
+      const currentDate = new Date();
+
+      // Format the date as desired (e.g., Saturday 9 December 2023)
+      const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+      const formattedDate = currentDate.toLocaleDateString('en-US', options);
+
+      // Set the formatted date as the content of the element
+      currentDateElement.textContent = formattedDate;
+    </script>
+    <!-- End of Script to get date -->
+  </nav>
+</header>
+
+<body>
+<!-- side nav bar html -->
+<div id="mySidenav" class="sidenav">
+  <div class="user-profile">
+    <img src="avatar.jpg" alt="User Avatar">
+    <p id="username">User Name</p>
+  </div>
+  <a href="#">Link 1</a>
+  <a href="#">Link 2</a>
+  <a href="#">Link 3</a>
+  <div class="bottom">
+    <p>© 2023 My Website</p>
+    <a href="#">Facebook</a>
+    <a href="#">Twitter</a>
+    <a href="#">Instagram</a>
+  </div>
+</div>
+
+<!-- JavaScript to record the mouse hover to the side nav bar -->
+<script>
+  const sidenav = document.getElementById("mySidenav");
+
+  document.body.addEventListener("mouseenter", function (event) {
+    if (event.clientX < 50) {
+      sidenav.style.width = "250px";
+    }
+  });
+
+  document.body.addEventListener("mouseleave", function (event) {
+    if (!isMouseOverSidenav(event)) {
+      sidenav.style.width = "0";
+    }
+  });
+
+  function isMouseOverSidenav(event) {
+    const sidenavRect = sidenav.getBoundingClientRect();
+    return (
+            event.clientX >= sidenavRect.left &&
+            event.clientX <= sidenavRect.right &&
+            event.clientY >= sidenavRect.top &&
+            event.clientY <= sidenavRect.bottom
+    );
+  }
+</script>
+<!-- End JavaScript to record the mouse hover to the side nav bar -->
+<!--USER CARD-->
+
+<div id="main-content">
+  <div class="container">
+    <div class="card-user">
+      <div class="card-user-header">
+        <span class="icon">&#9899;</span> Customer Information
+      </div>
+      <div class="card-user-body">
+        <div class="form-group">
+          <label for="phone">Phone number:</label>
+          <input type="text" id="phone" placeholder="Enter phone number">
+        </div>
+        <div class="form-group">
+          <label for="fullName">Full name:</label>
+          <input type="text" id="fullName" placeholder="Enter full name">
+        </div>
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <input type="text" id="address" placeholder="Enter address">
+        </div>
+      </div>
+    </div>
+    <!--SHOP CART-->
+    <div class="card">
+      <div class="card-product-header">
+        <i class="fas fa-cart-shopping" style="padding-right: 5px;"></i> List of Products
+      </div>
+      <div class="card-body">
+        <div class="table-container">
+          <table class="custom-table">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Product name</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Price</th>
+              <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- ... your table rows go here ... -->
+            <tr>
+              <td>1</td>
+              <td>Product A</td>
+              <td>5</td>
+              <td>$10.00</td>
+              <td>
+                <button type="button" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-init data-mdb-ripple-color="dark">Delete</button>
+                <button type="button" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-init data-mdb-ripple-color="dark">Add</button>
+              </td>
+            </tbody>
+          </table>
+        </div>
+        <button class="btn btn-primary mt-3">Pay</button>
+      </div>
+    </div>
+
+    <!-- Container for product on the right -->
+    <div id="container-for-product">
+      <div class="input-group">
+        <label>
+          <input type="search" class="search-input" placeholder="Search">
+        </label>
+        <span class="search-icon">&#128269;</span>
+      </div>
+
+      <div class="card-for-product">
+        <!-- ... your product card content ... -->
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+
+
+</html>

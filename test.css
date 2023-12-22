@@ -1,0 +1,325 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+#cartByHAT{
+    display: flex;
+    align-items: center;
+}
+
+#cartByHAT:hover {
+    color: #007bff; /* Change the color to blue when hovered */
+}
+
+
+header {
+    background-color: #ffffff; /* Change the background color to white */
+    padding: 20px 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a light shadow */
+}
+
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+    transition: color 0.3s;
+    font-size: 20px; /* Increased font size */
+}
+
+nav a:hover {
+    color: #007bff;
+}
+
+.menu-icon {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+#currentDate {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media screen and (max-width: 768px) {
+    .main-content {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 100px; /* Adjust margins as needed */
+    }
+
+    #cartByHAT {
+        display: none;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 80px; /* Increased top value */
+        left: 0;
+        width: 100%;
+        background-color: #f8f9fa;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
+
+    nav ul li {
+        margin: 0;
+        text-align: center;
+        border-bottom: 1px solid #ced4da;
+        padding: 20px; /* Increased padding */
+    }
+
+    .menu-icon {
+        display: block;
+    }
+}
+
+/* CSS for side nav bar */
+.sidenav:hover {
+    width: 250px; /* Width of the sidebar when hovered over */
+}
+
+/* CSS */
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #2C3E50; /* Updated background color */
+    overflow-x: hidden;
+    transition: 0.5s; /* Adjust the transition duration */
+    padding-top: 60px;
+}
+
+.sidenav .user-profile {
+    display: flex;
+    align-items: center;
+    padding: 15px; /* Increased padding for better spacing */
+    border-bottom: 1px solid #34495E; /* Border between user profile and links */
+}
+
+.sidenav .user-profile img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px; /* Increased margin for better spacing */
+}
+
+.sidenav #username {
+    font-size: 18px; /* Adjusted font size */
+    color: #ECF0F1; /* Light text color */
+}
+
+.sidenav a {
+    padding: 12px 12px 12px 32px; /* Adjusted padding for better spacing */
+    text-decoration: none;
+    font-size: 20px;
+    color: #BDC3C7; /* Slightly lighter text color */
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #FFFFFF; /* White text color on hover */
+}
+
+.sidenav .bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #34495E; /* Border above bottom content */
+}
+
+.bottom p {
+    margin: 0;
+    padding: 10px 0;
+    color: #ECF0F1;
+}
+
+/* Your existing styles above */
+
+.container {
+    width: 600px;
+    margin: 20px 0 0px 100px; /* Adjust the left margin to move the card to the left */
+}
+
+.card-user {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 300px;
+}
+
+.card-user-header {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.card-user-header .icon {
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+.card-user-body{
+    height: 100%;
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 20px; /* Push the card to the bottom of the container */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-product-header{
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.card-body {
+    padding: 10px;
+    height: 350px;
+}
+
+.table-container {
+    height: 260px;
+    max-height: 260px;
+    overflow: auto;
+    border-bottom:1px solid #cccccc;
+
+    padding: 10px; /* Optional padding for inner content */
+}
+
+
+/* Style the table header */
+.table-container thead {
+    background-color: #f2f2f2; /* Background color */
+}
+
+/* Style the table header cells */
+.custom-table th {
+    border: 1px solid #ddd; /* Border */
+    padding: 8px; /* Padding */
+    text-align: left; /* Text alignment */
+}
+
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.custom-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.custom-table th {
+    background-color: #f2f2f2;
+}
+
+/* ... your existing styles ... */
+
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 100px; /* Adjust margins as needed */
+}
+
+#container-for-product {
+    display: inline-block; /* or use 'inline' */
+    vertical-align: top; /* Align to the top of the line */
+    width: 300px;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+}
+
+
+
+
+
+/* ... your remaining styles ... */
+
+
+.search-icon {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0 5px 5px 0;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.card-for-product {
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
