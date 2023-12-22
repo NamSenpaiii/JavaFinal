@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Material Design for Bootstrap</title>
+  <!-- MDB icon -->
+  <link rel="icon" href="/img/mdb-favicon.ico" type="image/x-icon" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+  <!-- MDB ESSENTIAL -->
+  <link rel="stylesheet" href="/css/mdb.min.css" />
+  <!-- MDB PLUGINS -->
+  <link rel="stylesheet" href="../static/plugins/css/all.min.css" />
+  <!-- Custom styles -->
+  <style></style>
+</head>
+
+<style>
+  body {
+    background-color: hsl(0, 0%, 97%);
+  }
+
+  @media (min-width: 1400px) {
+
+    main,
+    header,
+    #main-navbar {
+      padding-left: 240px;
+    }
+  }
+</style>
+
+<!--Main Navigation-->
+
+
+<body>
+
+  <header>
+    <!-- Sidenav -->
+    <nav id="main-sidenav" class="sidenav sidenav-sm shadow-1" data-mdb-hidden="false" data-mdb-accordion="true"
+      data-mdb-sidenav-init id="sidenav-3" class="sidenav" data-mdb-scroll-container="#scroll-container"
+      data-mdb-mode="side">
+      <a class="ripple d-flex justify-content-center pt-4 pb-2" href="/admin/index" data-mdb-ripple-color="primary">
+        <img id="" src="../static/img/Logo.png" alt="Logo" draggable="false" style="width:70px" />
+      </a>
+
+      <hr class="hr">
+
+      <ul class="sidenav-menu px-2 pb-5" id="scroll-container">
+        <li class="sidenav-item">
+          <a class="sidenav-link" asp-page="/admin/index">
+            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Overview</span>
+          </a>
+        </li>
+
+        <li class="sidenav-item pt-3">
+          <span class="sidenav-subheading text-muted text-uppercase fw-bold">Efficient</span>
+        </li>
+
+        <li class="sidenav-item">
+          <a class="sidenav-link" asp-page="/admin/ranking/index">
+            <i class="fas fa-arrow-trend-up me-3"></i><span>Ranking</span>
+          </a>
+        </li>
+
+
+        <li class="sidenav-item pt-3">
+          <span class="sidenav-subheading text-muted text-uppercase fw-bold">Manage</span>
+        </li>
+        <li class="sidenav-item">
+          <a class="sidenav-link" asp-page="/admin/saler/index">
+            <i class="fas fa-users fa-fw me-3"></i><span> Saler management</span>
+          </a>
+        </li>
+        <li class="sidenav-item">
+          <a class="sidenav-link" asp-page="/admin/product/index">
+            <i class="fas fa-database fa-fw me-3"></i><span>Product management </span>
+          </a>
+        </li>
+        <li class="sidenav-item pt-3">
+          <span class="sidenav-subheading text-muted text-uppercase fw-bold">About</span>
+        </li>
+
+        <li class="sidenav-item">
+          <a class="sidenav-link" asp-page="/admin/about/index">
+            <i class="fas fa-users fa-fw me-3"></i><span>Team</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- Sidenav -->
+
+
+    <!-- Navbar -->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-1">
+      <!-- Container wrapper -->
+      <div class="container-fluid">
+        <!-- Toggler -->
+        <button data-mdb-toggle="sidenav" data-mdb-target="#main-sidenav"
+          class="btn shadow-0 p-0 me-3 d-block d-xxl-none" aria-controls="#main-sidenav" aria-haspopup="true">
+          <i class="fas fa-bars fa-lg"></i>
+        </button>
+
+        <!-- Search form -->
+        <form class="d-none d-md-flex input-group w-auto my-auto">
+          <input id="search-focus" autocomplete="off" type="search" class="form-control rounded"
+            placeholder="Search (ctrl + alt to focus)" style="min-width: 225px" />
+          <span class="input-group-text border-0">
+            <i class="fas fa-search text-secondary"></i>
+          </span>
+        </form>
+
+        <!-- Right links -->
+        <ul class="navbar-nav ms-auto d-flex flex-row">
+          <!-- Avatar -->
+          <li class="nav-item dropdown">
+            <a data-mdb-dropdown-init class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+              id="navbarDropdownMenuLink" role="button" aria-expanded="false">
+              <img src="../static/img/DefaultProfilePicture.jpg" class="rounded-circle" height="22"
+                alt="Portrait of a Woman" loading="lazy" />
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li>
+                <a class="dropdown-item" asp-page="/admin/UserProfile" asp-route-id="@UserId">My profile</a>
+              </li>
+              <li>
+                <a class="dropdown-item" asp-page="/admin/Logout">Logout</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+
+
+    <section class="mb-5 mb-lg-8 text-center text-md-start">
+      <!-- Background gradient -->
+      <div class="p-5" style="height: 200px;
+                              background: linear-gradient(
+                              to right,
+                              hsl(209, 42.2%, 65%),
+                              hsl(209, 42.2%, 85%)
+                              );">
+      </div>
+      <!-- Background gradient -->
+
+      <div class="container px-4">
+        <div class="card shadow-0" style="
+                                          margin-top: -100px;
+                                          ">
+          <div class="card-body py-5 px-5">
+            <div class="row gx-lg-4 align-items-center">
+              <div class="col-lg-6 mb-4 mb-lg-0 text-center text-lg-start">
+                <h1 class="">This is a Title</h1>
+                <!-- Breadcrumb -->
+                <nav class="d-flex justify-content-center justify-content-lg-start">
+                  <h6 class="mb-0">
+                    <a href="" class="text-muted">Home</a>
+                    <span>/</span>
+                    <a href="" class="text-muted">Category</a>
+                    <span>/</span>
+                    <a href="" class="text-muted">
+                      <u>SubCategory</u>
+                    </a>
+                  </h6>
+                </nav>
+                <!-- Breadcrumb -->
+              </div>
+
+              <div class="col-lg-6 text-center text-lg-end">
+
+                <button type="button" class="btn btn-link me-1 mb-4 px-2" data-mdb-ripple-init data-mdb-modal-init
+                  data-mdb-target="#exampleModal">
+                  Information <i class="fas fa-circle-question fa-lg ms-2"></i>
+                </button>
+                <form method="get">
+                  <div class="row justify-content-center justify-content-lg-end">
+
+                    <div class="col-md-3">
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Instruction Manual</h5>
+                              <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">It is a long established
+                              fact that a reader will be distracted by the readable content of a page when looking
+                              at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                              distribution
+                              of letters, as opposed to using 'Content here, content here', making it look like readable
+                              English.
+                              Many desktop publishing packages and web page editors now use Lorem Ipsum as their default
+                              model
+                              text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.
+                              Various
+                              versions have evolved over the years, sometimes by accident, sometimes on purpose
+                              (injected humour
+                              and the like).
+
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-mdb-ripple-init
+                                data-mdb-dismiss="modal">Got it</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Modal -->
+                    </div>
+                    <div class="col-md-4 mb-4 mb-md-0">
+                      <label>
+                        <select name="dateTemplate" data-mdb-select-init>
+                          <option value="0">All time</option>
+                          <option value="1">Today</option>
+                          <option value="2" selected>Yesterday</option>
+                          <option value="3">Last 7 days</option>
+                          <option value="4">Last 28 days</option>
+                          <option value="5">Last 90 days</option>
+                        </select>
+                      </label>
+                    </div>
+
+
+
+                    <div class="col-md-4">
+                      <div class="form-outline datepicker-disable-future" data-mdb-input-init>
+                        <input type="text" class="form-control" id="exampleDatepicker7" />
+                        <label for="exampleDatepicker7" class="form-label">Select a date</label>
+                      </div>
+                      <input type="hidden" name="handler" value="Date">
+                    </div>
+                    <div class="col-md-1">
+                      <button type="submit" class="btn btn-primary btn-rounded" data-mdb-ripple-init>
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </header>
+  <main class="mb-5">
+
+    <!-- Container for demo purpose -->
+    <div class="container px-4">
+      <!--Section: Content-->
+      <section class="text-center">
+        <div class="row gx-xl-5">
+          <div class="col-lg-6 mb-4 mb-lg-0">
+            <div class="card shadow-0">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="flex-shrink-0">
+                    <div class="p-3 badge-primary rounded-4">
+                      <i class="fas fa-dollar-sign fa-lg fa-fw"></i>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1 ms-4">
+                    <p class="text-muted mb-1">Total revenue</p>
+                    <h2 class="mb-0">
+                      20000
+                      <span class="" style="font-size: 0.875rem">
+                        USD</span>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mb-4 mb-lg-0">
+            <div class="card shadow-0">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="flex-shrink-0">
+                    <div class="p-3 badge-primary rounded-4">
+                      <i class="fas fa-receipt fa-lg fa-fw"></i>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1 ms-4">
+                    <p class="text-muted mb-1">Total Order</p>
+                    <h2 class="mb-0">
+                      100000
+                      <span class="" style="font-size: 0.875rem">
+                        Orders</span>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+      <!--Section: Content-->
+    </div>
+    <!-- Container for demo purpose -->
+
+
+  </main>
+  <!--Main layout-->
+  <!-- End your project here-->
+</body>
+
+<!-- MDB ESSENTIAL -->
+<script type="text/javascript" src="../static/js/mdb.umd.min.js"></script>
+<!-- MDB PLUGINS -->
+<script type="text/javascript" src="../static/plugins/js/all.min.js"></script>
+<!-- Custom scripts -->
+
+
+</html>
+<script>
+
+  import mdb from "../static/js/mdb.umd.min";
+
+  const datepickerDisableFuture = document.querySelector('.datepicker-disable-future');
+  new mdb.Datepicker(datepickerDisableFuture, {
+    disableFuture: true
+  });
+  </script>
