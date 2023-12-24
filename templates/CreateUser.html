@@ -35,7 +35,7 @@
     
                     <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Create User</p>
     
-                    <form class="mx-1 mx-md-4" th:action="@{/add}" th:object="${user}" method="post">
+                    <form class="mx-1 mx-md-4" th:action="@{/admin/add}" th:object="${user}" method="post">
                       <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fa-solid fa-id-card fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0"data-mdb-input-init>
@@ -47,26 +47,33 @@
                       <div class="d-flex flex-row align-items-center mb-4">
                         <i class=" fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0"  data-mdb-input-init>
-                          <input type="text" id="form3Example4cd" class="form-control" />
+                          <input type="text" id="form3Example4cd" th:field="*{lname}" class="form-control" />
                           <label class="form-label" for="form3Example4cd">Last Name</label>
                         </div>
                       </div>
                       <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fa-solid fa-envelope fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0"  data-mdb-input-init>
-                          <input type="email" id="form3Example4ce" class="form-control" />
+                          <input type="email" id="form3Example4ce" th:field="*{email}" class="form-control" />
                           <label class="form-label" for="form3Example4ce">Email</label>
                         </div>
                       </div>
                       <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fa-solid fa-location-dot fa-lg me-3 fa-fw"></i>
+                        <i class="fa-solid fa-power-off fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0"  data-mdb-input-init>
-                          <input type="text" id="form3Example4cf" class="form-control" />
-                          <label class="form-label" for="form3Example4cf">Address</label>
+                          <select th:field="*{status}" class="form-select" aria-label="Default select example">
+                            <option value="active" selected>Active</option>
+                            <option value="inactive">Inactive</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div th:if="${error}" class="align-items-center justify-content-center mb-4">
+                        <div class="alert alert-danger flex-fill text-center text-lg-center" style="overflow: auto;"  data-mdb-input-init>
+                          <p th:text="${error}" style="color: red; align-content: center"></p>
                         </div>
                       </div>
                       <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                        <button type="button" class="btn btn-primary btn-lg">CREATE</button>
+                        <button type="submit" class="btn btn-primary btn-lg">CREATE</button>
                       </div>
                     </form>
                   </div>

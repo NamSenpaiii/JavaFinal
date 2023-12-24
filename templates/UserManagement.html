@@ -25,6 +25,10 @@
         background-color: hsl(0, 0%, 97%);
     }
 
+    .inline-form {
+        display: inline-block;
+    }
+
     @media (min-width: 1400px) {
 
         main,
@@ -109,12 +113,7 @@
 
   <section class="mb-5 mb-lg-8 text-center text-md-center">
     <!-- Background gradient -->
-    <div class="p-5" style="height: 200px;
-                              background: linear-gradient(
-                              to right,
-                              hsl(209, 42.2%, 65%),
-                              hsl(209, 42.2%, 85%)
-                              );">
+    <div class="p-5" style="height: 200px;">
     </div>
     <!-- Breadcrumb -->
     <div class="container px-4">
@@ -155,7 +154,7 @@
                 </div>
               </div>
               <div class="p-2">
-                <a type="button" class="btn btn-primary" data-mdb-ripple-init="" href="/admin/Saler/Create">
+                <a type="button" class="btn btn-primary" data-mdb-ripple-init="" th:href="@{/admin/add}" >
                   <i class="fas fa-circle-plus fa-lg"></i>
                 </a>
               </div>
@@ -194,37 +193,49 @@
                   </tr>
                   </thead>
                   <tbody class="datatable-body">
+                  <div th:if="${error}" th:remove="tag">
+                    <script th:inline="javascript">
+                        /*<![CDATA[*/
+                        raiseError(/*[[${error}]]*/);
+                        /*]]>*/
+                    </script>
+                  </div>
                   <tr scope="row" data-mdb-index="2" th:each="user: ${users}">
                     <td style="" class="" data-mdb-field="field_0" false="">
                       <div class="d-flex align-items-center">
-                        <img src="/img/DefaultProfilePicture.jpg" alt="" style="width: 45px; height: 45px"
-                             class="rounded-circle">
+                        <img th:src="${user.getAvatar() != null ? user.getAvatar() : '/img/DefaultProfilePicture.jpg'}" alt="" style="width: 45px; height: 45px" class="rounded-circle">
                         <div class="ms-3">
                           <p class="fw-bold mb-1" th:text="${user.getUsername}"></p>
                         </div>
                       </div>
                     </td>
-                    <td style="" class="" data-mdb-field="field_1" th:text="${user.getFName()}">Nhat</td>
-                    <td style="" class="" data-mdb-field="field_2" th:text="${user.getLName()}">Nam</td>
+                    <td style="" class="" data-mdb-field="field_1" th:text="${user.getFname()}">Nhat</td>
+                    <td style="" class="" data-mdb-field="field_2" th:text="${user.getLname()}">Nam</td>
                     <td style="" class="" data-mdb-field="field_3" th:text="${user.getEmail}">nhatnamtv2003@gmail.com</td>
+                    <td>
                       <label>
                         <input class="form-check-input" type="checkbox" disabled="disabled" style="margin-left: 12px;" th:checked="${user.isActive()}">
                       </label>
                     </td>
                     <td style="" class="" data-mdb-field="field_5">
-                      <a type="button" class="btn btn-primary" data-mdb-ripple-init="" href="/admin/Saler/Edit?id=4">
-                        <i class="fas fa-pencil-alt"></i>
-                      </a>
-                      <a class="btn btn-danger popconfirm-toggle" onclick="confirmAction(event, this)"
-                         data-mdb-popconfirm-init="" data-mdb-position="top" data-mdb-ripple-init=""
-                         data-mdb-message="Are you sure want to delete" href="/admin/Saler?id=4&amp;handler=Delete"
-                         data-mdb-popconfirm-initialized="true">
-                        <i class="fas fa-trash-alt fa-lg"></i>
-                      </a>
-                      <a type="button" id="emailButton" class="btn btn-primary" data-mdb-ripple-init=""
-                         href="/admin/Saler?id=4&amp;handler=Email">
-                        <i class="fas fa-envelope fa-lg"></i>
-                      </a>
+                      <form class="inline-form" method="POST" th:action="@{/admin/edit(username=${user.username})}">
+                        <button type="submit" class="btn btn-primary" data-mdb-ripple-init="">
+                          <i th:if="${user.isActive()}" class="fas fa-lock"></i>
+                          <i th:if="${!user.isActive()}" class="fas fa-unlock-alt"></i>
+                        </button>
+                      </form>
+                      <form class="inline-form" method="POST" th:action="@{/admin/delete(username=${user.username})}">
+                        <a class="btn btn-danger popconfirm-toggle" onclick="confirmAction(event, this)"
+                           data-mdb-popconfirm-init="" data-mdb-position="top" data-mdb-ripple-init=""
+                           data-mdb-message="Are you sure want to delete">
+                          <i class="fas fa-trash-alt fa-lg"></i>
+                        </a>
+                      </form>
+                      <form class="inline-form" method="POST" th:action="@{/admin/sendmail(username=${user.username})}">
+                        <button type="submit" id="emailButton" class="btn btn-primary" data-mdb-ripple-init="">
+                          <i class="fas fa-envelope fa-lg"></i>
+                        </button>
+                      </form>
                     </td>
                   </tr>
                   </tbody>
@@ -291,54 +302,25 @@
             this.innerHTML = '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>';
         });
     });
+    function confirmAction(event, element) {
+        event.preventDefault();
+        var form = element.parentNode;
+        var message = element.getAttribute('data-mdb-message');
+        var result = confirm(message);
+        if (result) {
+            form.submit();
+        }
+    }
 </script>
 
-<script src="/lib/jquery/dist/jquery.min.js"></script>
-<script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/js/site.js?v=4q1jwFhaPaZgr8WAUSrux6hAuh0XDg9kPS3xIVq36I0"></script>
 <!-- MDB ESSENTIAL -->
 <script type="text/javascript" src="/js/mdb.umd.min.js"></script>
 <!-- MDB PLUGINS -->
 <script type="text/javascript" src="/plugins/js/all.min.js"></script>
-<script type="text/javascript" src="/js/saler/index.js"></script>
-
-
-<!-- MDB ESSENTIAL -->
-<script>
-    var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-    var toastList = toastElList.map(function (toastEl) {
-        return new mdb.Toast(toastEl)
-    })
-    toastList[0].show()
-</script>
-
-<script>
-    var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-    var toastList = toastElList.map(function (toastEl) {
-        return new mdb.Toast(toastEl)
-    })
-    toastList[1].show()
-</script>
-
-
-<script>
-
-    import mdb from "/js/mdb.umd.min";
-
-    const datepickerDisableFuture = document.querySelector('.datepicker-disable-future');
-    new mdb.Datepicker(datepickerDisableFuture,
-        {
-            disableFuture: true
-
-        });
-
-    var toastElList = [].slice.call(document.querySelectorAll('.toast'));
-    var toastList = toastElList.map(function (toastEl) {
-        return new mdb.Toast(toastEl);
-    });
-    toastList[0].show();
-
-
+<script th:inline="javascript">
+  function raiseError(message){
+      alert(message);
+  }
 </script>
 </body>
 </html>
