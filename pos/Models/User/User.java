@@ -1,11 +1,7 @@
 package finalproject.pos.Models.User;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.stereotype.Service;
+import lombok.*;
 
 @Entity
 @Getter
@@ -19,23 +15,23 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "fname")
-    private String fName;
+    private String fname;
     @Column(name = "lname")
-    private String lName;
+    private String lname;
     @Column(name = "username")
     private String username;
     @Column(name = "password")
     private String password;
-    @Column(name = "email")
+    @Column(name = "email" , unique = true)
     private String email;
     @Column(name = "avatar")
     private String avatar;
-    @Column(name = "role")
+    @Column(name = "role",columnDefinition = "varchar(255) default 'user'")
     private String role;
-    @Column(name = "status")
+    @Column(name = "status",columnDefinition = "varchar(255) default 'active'")
     private String status;
 
     public boolean isActive() {
-        return this.status.equals("Active");
+        return this.status.equals("active");
     }
 }
