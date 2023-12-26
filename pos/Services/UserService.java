@@ -1,7 +1,8 @@
-package finalproject.pos.Services;
+package com.javafinal.Service;
 
-import finalproject.pos.Models.User.User;
-import finalproject.pos.Models.User.UserRepository;
+
+import com.javafinal.Model.User;
+import com.javafinal.Model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class UserService {
         try {
             user.setUsername(getUsername(user.getEmail()));
             user.setPassword(hashPassword(user.getUsername()));
+            user.setRole("user");
             return userRepository.save(user);
         } catch (Exception e) {
             throw new RuntimeException(e);
