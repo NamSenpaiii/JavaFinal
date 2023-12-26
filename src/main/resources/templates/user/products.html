@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Products</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"  />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="/img/mdb-favicon.ico" type="image/x-icon"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"/>
+    <!-- MDB ESSENTIAL -->
+    <link rel="stylesheet" href="/css/mdb.min.css"/>
+    <!-- MDB PLUGINS -->
+    <link rel="stylesheet" href="/plugins/css/all.min.css"/>
+</head>
+<style>
+    /*.pagination li a:hover {
+        color: #666;
+    }
+    .pagination li.active a, .pagination li.active a.page-link {
+        background: #03A9F4;
+    }
+    .pagination li.active a:hover {
+        background: #0397d6;
+    }
+    .pagination li.disabled i {
+        color: #ccc;
+    }
+    .pagination li i {
+        font-size: 16px;
+        padding-top: 6px
+    }*/
+    body {
+        background-color: hsl(0, 0%, 97%);
+    }
+
+    .inline-form {
+        display: inline-block;
+    }
+
+    @media (min-width: 1400px) {
+
+        main,
+        header,
+        #main-navbar {
+            padding-left: 240px;
+        }
+    }
+    table.table td a.edit {
+        color: #FFC107;
+    }
+    table.table td a.delete {
+        color: #F44336;
+    }
+    table.table td i {
+        font-size: 19px;
+    }
+    table.table td:last-child i {
+        opacity: 0.9;
+        font-size: 22px;
+        margin: 0 5px;
+    }
+    table.table td a {
+        font-weight: bold;
+        color: #566787;
+        display: inline-block;
+        text-decoration: none;
+        outline: none !important;
+    }
+    table.table td a:hover {
+        color: #2196F3;
+    }
+</style>
+<header>
+    <nav id="main-sidenav" class="sidenav sidenav-sm shadow-1" data-mdb-hidden="true" data-mdb-accordion="true"
+         data-mdb-sidenav-init >
+        <a class="ripple d-flex justify-content-center pt-4 pb-2" href="/" data-mdb-ripple-color="primary">
+            <img id="" src="/img/Logo.png" alt="Logo" draggable="false" style="width:70px"/>
+        </a>
+
+        <hr class="hr">
+
+        <ul class="sidenav-menu px-2 pb-5" id="scroll-container">
+
+
+
+            <li class="sidenav-item pt-3">
+                <span class="sidenav-subheading text-muted text-uppercase fw-bold">Sale</span>
+            </li>
+            <li class="sidenav-item" >
+                <a class="sidenav-link" th:href="@{/user/sales}">
+                    <i class="fas fa-add fa-fw me-3"></i><span> New sale</span>
+                </a>
+            </li>
+            <li class="sidenav-item" >
+                <a class="sidenav-link" th:href="@{/user/salesHistory}">
+                    <i class="fas fa-history fa-fw me-3"></i><span> Sales history</span>
+                </a>
+            </li>
+            <li class="sidenav-item" >
+                <a class="sidenav-link" th:href="@{/user/products}">
+                    <i class="fas fa-database fa-fw me-3"></i><span> View Products</span>
+                </a>
+            </li>
+            <li class="sidenav-item pt-3">
+                <span class="sidenav-subheading text-muted text-uppercase fw-bold">About</span>
+            </li>
+
+            <li class="sidenav-item">
+                <a class="sidenav-link">
+                    <i class="fas fa-users fa-fw me-3"></i><span>Team</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-1">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+            <!-- Toggler -->
+            <button data-mdb-toggle="sidenav" data-mdb-target="#main-sidenav"
+                    class="btn shadow-0 p-0 me-3 d-block d-xxl-none" aria-controls="#main-sidenav" aria-haspopup="true">
+                <i class="fas fa-bars fa-lg"></i>
+            </button>
+
+            <!-- Right links -->
+            <ul class="navbar-nav ms-auto d-flex flex-row">
+                <!-- Avatar -->
+                <ul class="navbar-nav ms-auto d-flex flex-row">
+                    <!-- Avatar -->
+                    <li class="nav-item dropdown">
+                        <a data-mdb-dropdown-init class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                           id="navbarDropdownMenuLink" role="button" aria-expanded="false">
+                            <img th:src="${user.getAvatar() != null ? user.getAvatar() : '/img/DefaultProfilePicture.jpg'}" class="rounded-circle" style="height: 30px;width: 30px"
+                                 alt="Portrait of a Woman" loading="lazy"/>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li>
+                                <button class="dropdown-item" onclick="profile()" >Profile</button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item" onclick="changePassword()">Change Password</button>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/Login">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!--<section >
+        <div class="text-center mt-5">
+            <div ><h2>Welcome to my application</h2></div>
+
+        </div>
+    </section>-->
+
+</header>
+
+<body>
+<div class="container-fluid text-center" style="margin-top: 70px">
+    <div><h2>Manage Products</h2></div>
+
+    <div>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Barcode</th>
+                <th>Category</th>
+                <th>Creation Date</th>
+                <th>Import Price</th>
+                <th>Product Name</th>
+                <th>Retail Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="p : ${productList}">
+                <tr>
+                    <td>[[${p.productId}]]</td>
+                    <td>[[${p.description}]]</td>
+                    <td>[[${p.barcode}]]</td>
+                    <td>[[${p.category}]]</td>
+                    <td>[[${p.creationDate}]]</td>
+                    <td>[[${p.importPrice}]]</td>
+                    <td>[[${p.productName}]]</td>
+                    <td>[[${p.retailPrice}]]</td>
+                </tr>
+            </th:block>
+
+            </tbody>
+        </table>
+        <!--<div class="clearfix " >
+
+            <ul class="pagination d-flex justify-content-center">
+                <li class="page-item"><a href="#" class="page-link">Previous</a></li>
+                <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                <li class="page-item"><a href="#" class="page-link">3</a></li>
+                <li class="page-item"><a href="#" class="page-link">4</a></li>
+                <li class="page-item"><a href="#" class="page-link">5</a></li>
+                <li class="page-item"><a href="#" class="page-link">Next</a></li>
+            </ul>
+        </div>-->
+    </div>
+</div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var emailButton = document.getElementById('emailButton');
+        emailButton.addEventListener('click', function () {
+            this.innerHTML = '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>';
+        });
+    });
+    function confirmAction(event, element) {
+        event.preventDefault();
+        var form = element.parentNode;
+        var message = element.getAttribute('data-mdb-message');
+        var result = confirm(message);
+        if (result) {
+            form.submit();
+        }
+    }
+</script>
+
+<!-- MDB ESSENTIAL -->
+<script type="text/javascript" src="/js/mdb.umd.min.js"></script>
+<!-- MDB PLUGINS -->
+<script type="text/javascript" src="/plugins/js/all.min.js"></script>
+<script th:inline="javascript">
+    function raiseError(message){
+        alert(message);
+    }
+
+
+</script>
+<script th:inline="javascript">
+    function profile() {
+        var username = document.getElementById("un").value;
+        window.location.href = '/admin/profile?username=' + username;
+    }
+</script>
+<script th:inline="javascript">
+    function changePassword() {
+        window.location.href = '/ChangePassword';
+    }
+</script>
+</html>

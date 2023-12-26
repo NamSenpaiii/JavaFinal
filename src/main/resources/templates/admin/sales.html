@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Material Design for Bootstrap</title>
+    <!-- MDB icon -->
+    <link rel="icon" href="/img/mdb-favicon.ico" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB ESSENTIAL -->
+    <link rel="stylesheet" href="/css/mdb.min.css"/>
+    <!-- MDB PLUGINS -->
+    <link rel="stylesheet" href="/plugins/css/all.min.css"/>
+    <!-- Custom styles -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI/tTQa9u9v5vzNQl9RGs1Hg3Fb6HRnLZx7f+0E="
+            crossorigin="anonymous"></script>
+
+
+    <style>
+        .input-group {
+            position: relative;
+        }
+    </style>
+
+</head>
+
+<header>
+    <nav id="main-sidenav" class="sidenav sidenav-sm shadow-1" data-mdb-hidden="true" data-mdb-accordion="true"
+         data-mdb-sidenav-init >
+        <a class="ripple d-flex justify-content-center pt-4 pb-2" href="/admin" data-mdb-ripple-color="primary">
+            <img id="" src="/img/Logo.png" alt="Logo" draggable="false" style="width:70px"/>
+        </a>
+
+        <hr class="hr">
+
+        <ul class="sidenav-menu px-2 pb-5" id="scroll-container">
+            <li class="sidenav-item">
+                <a class="sidenav-link" >
+                    <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Overview</span>
+                </a>
+            </li>
+
+            <!--<li class="sidenav-item pt-3">
+                <span class="sidenav-subheading text-muted text-uppercase fw-bold">User Management</span>
+            </li>-->
+
+
+
+
+            <li class="sidenav-item pt-3">
+                <span class="sidenav-subheading text-muted text-uppercase fw-bold">Manage</span>
+            </li>
+            <li class="sidenav-item">
+                <a class="sidenav-link" th:href="@{/admin/UserManagement}">
+                    <i class="fas fa-users me-3"></i><span>User management</span>
+                </a>
+            </li>
+            <li class="sidenav-item">
+                <a class="sidenav-link" th:href="@{/admin/products}">
+                    <i class="fas fa-database fa-fw me-3"></i><span>Product management </span>
+                </a>
+            </li>
+
+            <li class="sidenav-item pt-3">
+                <span class="sidenav-subheading text-muted text-uppercase fw-bold">Sale</span>
+            </li>
+            <li class="sidenav-item" >
+                <a class="sidenav-link" th:href="@{/admin/sales}">
+                    <i class="fas fa-add fa-fw me-3"></i><span> New sale</span>
+                </a>
+            </li>
+            <li class="sidenav-item" >
+                <a class="sidenav-link" th:href="@{/admin/salesHistory}">
+                    <i class="fas fa-history fa-fw me-3"></i><span> Sales history</span>
+                </a>
+            </li>
+            <li class="sidenav-item pt-3">
+                <span class="sidenav-subheading text-muted text-uppercase fw-bold">About</span>
+            </li>
+
+            <li class="sidenav-item">
+                <a class="sidenav-link">
+                    <i class="fas fa-users fa-fw me-3"></i><span>Team</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-1">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+            <!-- Toggler -->
+            <button data-mdb-toggle="sidenav" data-mdb-target="#main-sidenav"
+                    class="btn shadow-0 p-0 me-3 d-block d-xxl-none" aria-controls="#main-sidenav" aria-haspopup="true">
+                <i class="fas fa-bars fa-lg"></i>
+            </button>
+
+            <!-- Right links -->
+            <ul class="navbar-nav ms-auto d-flex flex-row">
+                <!-- Avatar -->
+                <ul class="navbar-nav ms-auto d-flex flex-row">
+                    <!-- Avatar -->
+                    <li class="nav-item dropdown">
+                        <a data-mdb-dropdown-init class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                           id="navbarDropdownMenuLink" role="button" aria-expanded="false">
+                            <img th:src="${user.getAvatar() != null ? user.getAvatar() : '/img/DefaultProfilePicture.jpg'}" class="rounded-circle" style="height: 30px;width: 30px"
+                                 alt="Portrait of a Woman" loading="lazy"/>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li>
+                                <button class="dropdown-item" onclick="profile()" >Profile</button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item" onclick="changePassword()">Change Password</button>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/Login">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!--<section >
+        <div class="text-center mt-5">
+            <div ><h2>Welcome to my application</h2></div>
+
+        </div>
+    </section>-->
+
+</header>
+
+
+<body>
+<!-- Start your project here-->
+<div class="contentPOS" style="padding: 70px;">
+<div th:if="${message}" class="alert alert-success text-center ">
+    [[${message}]]
+</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-10 col-lg-8 col-md-8">
+                <div class="card card-custom gutter-b bg-white border-0 table-contentpos">
+                    <div class="card-body" id="box">
+                        <div style="margin-bottom: 10px;">
+                            <i class="fas fa-circle-user" style="padding-right: 5px;"></i> Customer Information
+                        </div>
+                        <form th:action="@{/admin/sales/save}" method="post" th:object="${customer} " id="salesForm">
+                            <input type="hidden" th:field="*{id}">
+                            <div class="border border-secondary rounded p-3">
+                                <div class="form-group row input-group">
+                                    <label class="col-sm-4 col-form-label">Phone Number:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" th:value="*{phoneNumber}" th:field="*{phoneNumber}" id="phoneNum" class="form-control" required minlength="10" maxlength="10">
+                                    </div>
+
+                                    <div class="input-group-append">
+                                        <!--<a id="checkButton" th:if="${customer != null}" th:href="@{'/admin/sales/checkCustomer/' + ${#fields.escapeJavaScript(customer?.phoneNumber)}}" class="btn btn-outline-primary btn-rounded">Check</a>-->
+
+
+                                        <!--<a type="button" th:href="@{'/admin/sales/checkCustomer/' + ${customer.phoneNumber}}"> Check</a>-->
+                                        <button type="button" class="btn btn-outline-primary btn-rounded" data-mdb-ripple-init
+                                                data-mdb-ripple-color="dark" th:onclick="checkCustomer()">Check</button>
+                                    </div>
+                                </div>
+                                <div class="form-group row input-group">
+                                    <label class="col-sm-4 col-form-label">Full Name:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" th:value="*{fullName}" th:field="*{fullName}" id="fullName" class="form-control" required minlength="2" maxlength="45">
+                                    </div>
+                                </div>
+                                <div class="form-group row input-group">
+                                    <label class="col-sm-4 col-form-label">Address:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" th:value="*{address}" th:field="*{address}" id="address" class="form-control" required minlength="2" maxlength="45">
+                                    </div>
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-primary m-2">Save</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </form>
+                        <!--<div class="d-flex justify-content-between" style="gap: 10px;">
+                            <div class="input-group">
+                                <div class="form-outline" >
+                                    <label class="form-label">Phone number</label>
+                                    <input type="text" id="form1"  class="form-control placeholder bg-primary"/>
+                                </div>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-primary btn-rounded" data-mdb-ripple-init
+                                            data-mdb-ripple-color="dark">Check</button>
+                                </div>
+                            </div>
+
+                            <div class="form-outline" data-mdb-input-init>
+                                <label class="form-label" for="form2">Full name</label>
+                                <input type="text" id="form2" class="form-control placeholder bg-primary" />
+
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between" style="gap: 10px; padding-top: 10px;">
+                            <div class="form-outline" data-mdb-input-init>
+                                <label class="form-label" for="form3">Address</label>
+                                <input type="text" id="form3" class="form-control placeholder bg-primary" />
+
+                            </div>
+                            <div class="form-outline" data-mdb-input-init>
+                                <label class="form-label" for="form4">Email</label>
+                                <input type="text" id="form4" class="form-control placeholder bg-primary" />
+
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+                <div class="card card-custom gutter-b bg-white border-0 table-contentpos" style="margin-top: 10px;">
+                    <div class="card-body">
+                        <div>
+                            <i class="fas fa-cart-shopping" style="padding-right: 5px;"></i> List of Product
+                        </div>
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Description</th>
+                                <th>Barcode</th>
+                                <th>Category</th>
+                                <th>Creation Date</th>
+                                <th>Import Price</th>
+                                <th>Product Name</th>
+                                <th>Retail Price</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:each="p : ${productList}">
+                                <tr>
+                                    <td>[[${p.productId}]]</td>
+                                    <td>[[${p.description}]]</td>
+                                    <td>[[${p.barcode}]]</td>
+                                    <td>[[${p.category}]]</td>
+                                    <td>[[${p.creationDate}]]</td>
+                                    <td>[[${p.importPrice}]]</td>
+                                    <td>[[${p.productName}]]</td>
+                                    <td>[[${p.retailPrice}]]</td>
+                                </tr>
+                            </th:block>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-4 col-md-4">
+                <div class="card card-custom gutter-b bg-white border-0">
+                    <div class="card-body">
+                        <div style="text-align: center; font-size: 20px;">
+                            Summarize Of Bill
+                        </div>
+                        <hr class="hr" />
+                    </div>
+                    <div class="card-body" style="padding-top: 0px; ">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>Subtotal</p>
+                                <p>Discount</p>
+                                <p>Tax</p>
+                                <p>TOTAL</p>
+                            </div>
+                            <div>
+                                <p>$ 100</p>
+                                <p>$ 10</p>
+                                <p>$ 10</p>
+                                <p>$ 100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="hr" />
+
+                    <div class="d-flex justify-content-end align-items-center flex-column buttons-cash" style="margin-bottom: 30px;">
+                        <div>
+                            <button type="button" class="btn btn-outline-success btn-rounded" data-mdb-ripple-init
+                                    data-mdb-ripple-color="dark"><i class="far fa-money-bill-1" style="margin-right: 5px;"></i>Pay with Cash</button>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <button type="button" class="btn btn-outline-success btn-rounded" data-mdb-ripple-init
+                                    data-mdb-ripple-color="dark"><i class="fas fa-wallet" style="margin-right: 5px;" ></i> Pay with MoMo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- End your project here-->
+</body>
+
+<script>
+    function checkCustomer() {
+
+        var phoneNumber = document.getElementById("phoneNum").value;
+        if (!phoneNumber || phoneNumber.trim() === "") {
+            alert("Please enter a valid phone number.");
+            return;
+        }
+        window.location.href = '/admin/sales/checkCustomer/' + phoneNumber;
+        // Make an AJAX request to check if the customer exists
+        /*$.ajax({
+            type: "GET",
+            url: '/admin/sales/checkCustomer/' + phoneNumber,
+            success: function (customer) {
+                // Update form fields with customer information
+                document.getElementById("fullName").value = customer.fullName;
+                document.getElementById("address").value = customer.address;
+            },
+            error: function (error) {
+                alert("Error: " + error.responseText);
+            }
+        });*/
+    }
+</script>
+
+
+<!-- MDB ESSENTIAL -->
+<script type="text/javascript" src="/js/mdb.umd.min.js"></script>
+<!-- MDB PLUGINS -->
+<script type="text/javascript" src="/plugins/js/all.min.js"></script>
+<!-- Custom scripts -->
+<script type="text/javascript"></script>
+
+</html>

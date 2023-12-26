@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sales history</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"  />
+  <!-- MDB icon -->
+  <link rel="icon" href="/img/mdb-favicon.ico" type="image/x-icon" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+  <!-- MDB ESSENTIAL -->
+  <link rel="stylesheet" href="/css/mdb.min.css" />
+  <!-- MDB PLUGINS -->
+  <link rel="stylesheet" href="/plugins/css/all.min.css" />
+  <link href="/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
+  <script src="/plugins/jquery-ui/jquery-ui.js"></script>
+
+  <script src="/js/views/SalesHistorySale.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+</head>
+<header>
+  <!-- Sidenav -->
+  <nav id="main-sidenav" class="sidenav sidenav-sm shadow-1" data-mdb-hidden="true" data-mdb-accordion="true"
+       data-mdb-sidenav-init >
+    <a class="ripple d-flex justify-content-center pt-4 pb-2" href="/admin" data-mdb-ripple-color="primary">
+      <img id="" src="/img/Logo.png" alt="Logo" draggable="false" style="width:70px"/>
+    </a>
+
+    <hr class="hr">
+
+    <ul class="sidenav-menu px-2 pb-5" id="scroll-container">
+      <li class="sidenav-item">
+        <a class="sidenav-link" >
+          <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Overview</span>
+        </a>
+      </li>
+
+      <!--<li class="sidenav-item pt-3">
+          <span class="sidenav-subheading text-muted text-uppercase fw-bold">User Management</span>
+      </li>-->
+
+
+
+
+      <li class="sidenav-item pt-3">
+        <span class="sidenav-subheading text-muted text-uppercase fw-bold">Manage</span>
+      </li>
+      <li class="sidenav-item">
+        <a class="sidenav-link" th:href="@{/admin/UserManagement}">
+          <i class="fas fa-users me-3"></i><span>User management</span>
+        </a>
+      </li>
+      <li class="sidenav-item">
+        <a class="sidenav-link" th:href="@{/admin/products}">
+          <i class="fas fa-database fa-fw me-3"></i><span>Product management </span>
+        </a>
+      </li>
+
+      <li class="sidenav-item pt-3">
+        <span class="sidenav-subheading text-muted text-uppercase fw-bold">Sale</span>
+      </li>
+      <li class="sidenav-item" >
+        <a class="sidenav-link" th:href="@{/admin/sales}">
+          <i class="fas fa-add fa-fw me-3"></i><span> New sale</span>
+        </a>
+      </li>
+      <li class="sidenav-item" >
+        <a class="sidenav-link" th:href="@{/admin/salesHistory}">
+          <i class="fas fa-history fa-fw me-3"></i><span> Sales history</span>
+        </a>
+      </li>
+      <li class="sidenav-item pt-3">
+        <span class="sidenav-subheading text-muted text-uppercase fw-bold">About</span>
+      </li>
+
+      <li class="sidenav-item">
+        <a class="sidenav-link">
+          <i class="fas fa-users fa-fw me-3"></i><span>Team</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-1">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <!-- Toggler -->
+      <button data-mdb-toggle="sidenav" data-mdb-target="#main-sidenav"
+              class="btn shadow-0 p-0 me-3 d-block d-xxl-none" aria-controls="#main-sidenav" aria-haspopup="true">
+        <i class="fas fa-bars fa-lg"></i>
+      </button>
+
+      <!-- Right links -->
+      <ul class="navbar-nav ms-auto d-flex flex-row">
+        <!-- Avatar -->
+        <ul class="navbar-nav ms-auto d-flex flex-row">
+          <!-- Avatar -->
+          <li class="nav-item dropdown">
+            <a data-mdb-dropdown-init class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+               id="navbarDropdownMenuLink" role="button" aria-expanded="false">
+              <img th:src="${user.getAvatar() != null ? user.getAvatar() : '/img/DefaultProfilePicture.jpg'}" class="rounded-circle" style="height: 30px;width: 30px"
+                   alt="Portrait of a Woman" loading="lazy"/>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li>
+                <button class="dropdown-item" onclick="profile()" >Profile</button>
+              </li>
+              <li>
+                <button class="dropdown-item" onclick="changePassword()">Change Password</button>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/Login">Logout</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </ul>
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!--<section >
+      <div class="text-center mt-5">
+          <div ><h2>Welcome to my application</h2></div>
+
+      </div>
+  </section>-->
+</header>
+<body>
+<div class="card shadow mb-4 pt-5">
+
+  <div class="card-body">
+    <form th:action="@{/admin/sales/search}" method="get">
+      <div class="form-group col-sm-6 search-date">
+        <label for="startDate">Start Date</label>
+        <input type="date"  class="form-control" id="startDate" th:name="startDate">
+      </div>
+      <div class="form-group col-sm-6 search-date">
+        <label for="endDate">End Date</label>
+        <input type="date" class="form-control" id="endDate" th:name="endDate">
+      </div>
+      <div class="form-group col-sm-3">
+        <button class="btn btn-success btn-block" th:onclick="searchOrder()" type="button" id="btnSearch"> Search</button>
+      </div>
+    </form>
+
+    <hr/>
+    <div>
+      <table id="orderTable" class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+          <th>Order ID</th>
+          <th>Created By</th>
+          <th>Customer Name</th>
+          <th>Creation Date</th>
+          <th>Payment Method</th>
+          <th>Total</th>
+          <th>Order Details</th>
+        </tr>
+        </thead>
+        <tbody th:each="o : ${orderList}">
+        <tr>
+          <td>[[${o.Id}]]</td>
+          <td>[[${o.user.getFullName()}]]</td>
+          <td>[[${o.CustomerId.fullName}]]</td>
+          <td>[[${o.OrderDate}]]</td>
+          <td>[[${o.PaymentMethod}]]</td>
+          <td>[[${o.Total}]]</td>
+          <td>
+            <a th:href="@{'/admin/sales/details/' + ${o.Id}}" data-toggle="modal" data-target="#modalData">Details</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
+
+
+<script>
+  function searchOrder() {
+
+    var startDate = document.getElementById("startDate").value;
+    var endDate = document.getElementById("endDate").value;
+        if (!startDate || startDate.trim() === ""|| !endDate || endDate.trim() === "") {
+            alert("Please choose start Date and end Date for search");
+            return;
+        }
+    window.location.href = '/admin/sales/search?startDate=' + startDate + '&endDate=' + endDate;
+  }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var emailButton = document.getElementById('emailButton');
+        emailButton.addEventListener('click', function () {
+            this.innerHTML = '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>';
+        });
+    });
+    function confirmAction(event, element) {
+        event.preventDefault();
+        var form = element.parentNode;
+        var message = element.getAttribute('data-mdb-message');
+        var result = confirm(message);
+        if (result) {
+            form.submit();
+        }
+    }
+</script>
+
+<!-- MDB ESSENTIAL -->
+<script type="text/javascript" src="/js/mdb.umd.min.js"></script>
+<!-- MDB PLUGINS -->
+<script type="text/javascript" src="/plugins/js/all.min.js"></script>
+<script th:inline="javascript">
+    function raiseError(message){
+        alert(message);
+    }
+
+
+</script>
+<script th:inline="javascript">
+    function profile() {
+        window.location.href = '/profile';
+    }
+</script>
+<script th:inline="javascript">
+    function changePassword() {
+        window.location.href = '/ChangePassword';
+    }
+</script>
+</body>
+</html>
