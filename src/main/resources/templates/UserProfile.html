@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+  <title>Material Design for Bootstrap</title>
+  <!-- MDB icon -->
+  <link rel="icon" href="/img/mdb-favicon.ico" type="image/x-icon"/>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"/>
+  <!-- MDB ESSENTIAL -->
+  <link rel="stylesheet" href="/css/mdb.min.css"/>
+  <!-- MDB PLUGINS -->
+  <link rel="stylesheet" href="/plugins/css/all.min.css"/>
+  <!-- Custom styles -->
+
+  <style>
+      .input-group {
+          position: relative;
+      }
+
+      .custom-file-upload label {
+          padding: 10px;
+          color: white;
+          cursor: pointer;
+          background-color: #007bff;
+          border-radius: 5px;
+      }
+  </style>
+
+</head>
+
+<header>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <!-- Toggle button -->
+      <button data-mdb-collapse-init class="navbar-toggler" type="button" data-mdb-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Collapsible wrapper -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Navbar brand -->
+        <a class="navbar-brand mt-2 mt-lg-0" href="#">
+          <img src="/img/Logo.png" height="25" alt="Logo"
+               loading="lazy"/>
+        </a>
+        <!-- Left links -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Dashboard</a>
+          </li>
+        </ul>
+        <!-- Left links -->
+      </div>
+      <!-- Collapsible wrapper -->
+
+      <!-- Right elements -->
+      <div class="d-flex align-items-center">
+        <!-- Avatar -->
+        <div class="dropdown">
+          <a data-mdb-dropdown-init class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
+             id="navbarDropdownMenuAvatar" role="button" aria-expanded="false">
+            <img th:src="${user.avatar}" class="rounded-circle" height="25"
+                 alt="Black and White Portrait of a Man" loading="lazy"/>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+            <li>
+              <a class="dropdown-item" href="#">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- Right elements -->
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->
+</header>
+
+<body>
+<div class="container px-4">
+
+  <!--Section: Profile-->
+  <section>
+    <form method="post" id="form1" enctype="multipart/form-data"
+          th:action="@{/profile/upload}">
+      <div class="row gx-xl-5 justify-content-center align-items-center">
+        <div class="col-md-5 mb-4 mb-md-0 card" style="margin-top:20px">
+          <div class="card shadow-0 mb-5 align-items-center">
+            <div class="card-header py-3">
+              <strong>Edit your profile</strong>
+            </div>
+            <div class="card-body text-center w-100">
+
+              <div>
+                <div class="mb-4 d-flex justify-content-center">
+                  <img id="selectedImage" th:src="${user.getAvatar()}"
+                       alt="Avatar" class="rounded-circle shadow-1 mb-3"
+                       style="width: 100px; height: 100px;"/>
+                </div>
+
+                <div class="d-flex justify-content-center mb-4">
+                  <div class="custom-file-upload">
+                    <input type="file" name="imageFile" accept="image/png, image/gif, image/jpeg"
+                           class="form-control" id="customFile1"
+                           onchange="displaySelectedImage(event, 'selectedImage')" style="display: none;"/>
+                    <label for="customFile1" class="btn btn-primary">Choose file</label>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <input type="hidden" th:value="${user.username}">
+
+                <div class="form-outline mb-4" data-mdb-input-init>
+                  <input th:value="${user.fname}" type="text" id="firstName" disabled class="form-control" required/>
+                  <label class="form-label" for="firstName">First Name</label>
+                </div>
+
+                <div class="form-outline mb-4" data-mdb-input-init>
+                  <input th:value="${user.lname}" type="text" id="lastName" disabled class="form-control" required/>
+                  <label class="form-label" for="lastName">Last Name</label>
+                </div>
+
+                <div class="form-outline mb-4" data-mdb-input-init>
+                  <input th:value="${user.username}" type="text" id="username" disabled class="form-control" required/>
+                  <label class="form-label" for="username">Username</label>
+                </div>
+
+                <div class="form-outline mb-4" data-mdb-input-init>
+                  <input th:value="${user.email}" type="email" id="email" disabled class="form-control" required/>
+                  <label class="form-label" for="email">Email</label>
+                </div>
+
+                <div class="form-outline mb-4" data-mdb-input-init>
+                  <input th:value="${user.status}" type="text" id="status" disabled class="form-control" required/>
+                  <label class="form-label" for="status">Status</label>
+                </div>
+              </div>
+              <button id="submitBoth" type="submit" class="btn btn-primary mb-2">
+                Update profile
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+  <!--Section: Profile-->
+</div>
+<!-- Container for demo purpose -->
+
+</body>
+
+<!-- MDB ESSENTIAL -->
+<script type="text/javascript" src="/js/mdb.umd.min.js"></script>
+<!-- MDB PLUGINS -->
+<script type="text/javascript" src="/plugins/js/all.min.js"></script>
+<!-- Custom scripts -->
+<script type="text/javascript"></script>
+<script>
+
+    document.getElementById('formNameProduct').addEventListener('input',
+        function () {
+            document.getElementById('displayText').innerHTML = `<strong>${this.value}</strong>`;
+        });
+
+    function displaySelectedImage(event, elementId) {
+        const selectedImage = document.getElementById(elementId);
+        const fileInput = event.target;
+
+        if (fileInput.files && fileInput.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                selectedImage.src = e.target.result;
+            };
+
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    }
+</script>
+</html>

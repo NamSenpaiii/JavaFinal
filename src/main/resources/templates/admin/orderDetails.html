@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Details</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"  />
+    <!-- MDB icon -->
+    <link rel="icon" href="/img/mdb-favicon.ico" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB ESSENTIAL -->
+    <link rel="stylesheet" href="/css/mdb.min.css" />
+    <!-- MDB PLUGINS -->
+    <link rel="stylesheet" href="/plugins/css/all.min.css" />
+    <link href="/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
+    <script src="/plugins/jquery-ui/jquery-ui.js"></script>
+
+    <script src="/js/views/SalesHistorySale.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<header>
+    <nav id="main-sidenav" class="sidenav sidenav-sm shadow-1" data-mdb-hidden="true" data-mdb-accordion="true"
+         data-mdb-sidenav-init >
+        <a class="ripple d-flex justify-content-center pt-4 pb-2" href="/admin" data-mdb-ripple-color="primary">
+            <img id="" src="/img/Logo.png" alt="Logo" draggable="false" style="width:70px"/>
+        </a>
+
+        <hr class="hr">
+
+        <ul class="sidenav-menu px-2 pb-5" id="scroll-container">
+            <li class="sidenav-item">
+                <a class="sidenav-link" >
+                    <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Overview</span>
+                </a>
+            </li>
+
+            <!--<li class="sidenav-item pt-3">
+                <span class="sidenav-subheading text-muted text-uppercase fw-bold">User Management</span>
+            </li>-->
+
+
+
+
+            <li class="sidenav-item pt-3">
+                <span class="sidenav-subheading text-muted text-uppercase fw-bold">Manage</span>
+            </li>
+            <li class="sidenav-item">
+                <a class="sidenav-link" th:href="@{/admin/UserManagement}">
+                    <i class="fas fa-users me-3"></i><span>User management</span>
+                </a>
+            </li>
+            <li class="sidenav-item">
+                <a class="sidenav-link" th:href="@{/admin/products}">
+                    <i class="fas fa-database fa-fw me-3"></i><span>Product management </span>
+                </a>
+            </li>
+
+            <li class="sidenav-item pt-3">
+                <span class="sidenav-subheading text-muted text-uppercase fw-bold">Sale</span>
+            </li>
+            <li class="sidenav-item" >
+                <a class="sidenav-link" th:href="@{/admin/sales}">
+                    <i class="fas fa-add fa-fw me-3"></i><span> New sale</span>
+                </a>
+            </li>
+            <li class="sidenav-item" >
+                <a class="sidenav-link" th:href="@{/admin/salesHistory}">
+                    <i class="fas fa-history fa-fw me-3"></i><span> Sales history</span>
+                </a>
+            </li>
+            <li class="sidenav-item pt-3">
+                <span class="sidenav-subheading text-muted text-uppercase fw-bold">About</span>
+            </li>
+
+            <li class="sidenav-item">
+                <a class="sidenav-link">
+                    <i class="fas fa-users fa-fw me-3"></i><span>Team</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-1">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+            <!-- Toggler -->
+            <button data-mdb-toggle="sidenav" data-mdb-target="#main-sidenav"
+                    class="btn shadow-0 p-0 me-3 d-block d-xxl-none" aria-controls="#main-sidenav" aria-haspopup="true">
+                <i class="fas fa-bars fa-lg"></i>
+            </button>
+
+            <!-- Right links -->
+            <ul class="navbar-nav ms-auto d-flex flex-row">
+                <!-- Avatar -->
+                <ul class="navbar-nav ms-auto d-flex flex-row">
+                    <!-- Avatar -->
+                    <li class="nav-item dropdown">
+                        <a data-mdb-dropdown-init class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                           id="navbarDropdownMenuLink" role="button" aria-expanded="false">
+                            <img th:src="${user.getAvatar() != null ? user.getAvatar() : '/img/DefaultProfilePicture.jpg'}" class="rounded-circle" style="height: 30px;width: 30px"
+                                 alt="Portrait of a Woman" loading="lazy"/>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li>
+                                <button class="dropdown-item" onclick="profile()" >Profile</button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item" onclick="changePassword()">Change Password</button>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/Login">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!--<section >
+        <div class="text-center mt-5">
+            <div ><h2>Welcome to my application</h2></div>
+
+        </div>
+    </section>-->
+
+</header>
+
+<body>
+<div class="card shadow mb-4 mt-5 pt-5 mx-2">
+    <!-- Same modal structure as before -->
+    <div class="modal-body " >
+        <form>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-row">
+                        <!-- Populate fields using Thymeleaf expressions -->
+                        <div class="form-group col-sm-4">
+                            <label for="OrderDate">Order date</label>
+                            <input type="text" class="form-control form-control-sm" id="OrderDate" th:value="${order.orderDate}" disabled>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="OrderID">Order ID</label>
+                            <input type="text" class="form-control form-control-sm" id="OrderID" th:value="${order.id}" disabled>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="RegisterUser">Register User</label>
+                            <input type="text" class="form-control form-control-sm" id="RegisterUser" th:value="${order.user.getFullName()}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-4">
+                            <label for="CustomerPhone">Customer Phone</label>
+                            <input type="text" class="form-control form-control-sm" id="CustomerPhone" th:value="${order.customerId.phoneNumber}" disabled>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="CustomerName">Customer Name</label>
+                            <input type="text" class="form-control form-control-sm" id="CustomerName" th:value="${order.customerId.fullName}" disabled>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="Total">Total</label>
+                            <input type="text" class="form-control form-control-sm" id="Total" th:value="${order.total}" disabled>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="tbProducts" class="table table-sm table-striped">
+                                <!-- Similar structure for displaying product details -->
+                                <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- Use Thymeleaf to iterate over order details and populate the table -->
+                                <tr th:each="detail : ${orderDetailsList}">
+                                    <td>[[${detail.productId.productName}]]</td>
+                                    <td>[[${detail.quantity}]]</td>
+                                    <td>[[${detail.productId.retailPrice}]]</td>
+                                    <td>[[${detail.quantity * detail.productId.retailPrice}]]</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- Rest of the modal structure remains the same -->
+</div>
+
+<script type="text/javascript" src="/js/mdb.umd.min.js"></script>
+<!-- MDB PLUGINS -->
+<script type="text/javascript" src="/plugins/js/all.min.js"></script>
+
+<script>
+    function profile() {
+        window.location.href = "/admin/profile";
+    }
+    function changePassword() {
+        window.location.href = "/admin/changePassword";
+    }
+</script>
+</body>
+</html>
