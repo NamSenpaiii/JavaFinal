@@ -1,4 +1,4 @@
-package finalproject.pos.Models.User;
+package com.javafinal.Model;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

@@ -1,4 +1,4 @@
-package finalproject.pos.Models.User;
+package com.javafinal.Model;
 
 import jakarta.persistence.*;
 import lombok.*;
